@@ -9,9 +9,13 @@
 
         var settings = $.extend({
             // defaults
-            
+            img: $('#example.jpg').first()
 
         }, options );
+
+        var tooltip = $('<canvas/>', {
+            style: ''
+        }).appendTo('body');
 
         return this.each(function() {
             // init each element
