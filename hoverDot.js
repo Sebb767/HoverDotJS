@@ -23,7 +23,7 @@
     $.fn.dotHover = function (dots, options) {
 
         // settings
-        var settings = $.extend({
+        this.settings = $.extend({
             // defaults
             img: "karte.png", //$('#example.jpg').first(),
             dots: [],
@@ -55,7 +55,7 @@
 
             var hit = false;
             for (var i = 0; i < settings.dots.length; i++) {
-                var dot = settings.dots[i];
+                var dot = this.settings.dots[i];
                 var dx = mouseX - dot.x;
                 var dy = mouseY - dot.y;
 
@@ -75,7 +75,7 @@
         // re-renders all dots
         var render = function () {
             $.each(contexts, function (i, ctx) {
-                $.each(settings.dots, function (j, dot) {
+                $.each(this.settings.dots, function (j, dot) {
                     dot.render(ctx);
                 });
             });
@@ -85,16 +85,16 @@
         // places a new dot
         //
         var placedot = function (e) {
-            settings.dots.push(new dot(e.clientX, e.clientY, "Example Text"));
+            this.settings.dots.push(new dot(e.clientX, e.clientY, "Example Text"));
             render();
         };
 
         // init mouse move on each element
         this.each(function(i, el) {
-            el.style= 'background: url(' + settings.img + ');' +
+            el.style= 'background: url(' + this.settings.img + ');' +
             'background-repeat: no-repeat; ' +
             'background-size: contain;' +
-            'width: ' + settings.width + '; ';
+            'width: ' + this.settings.width + '; ';
             //'height: ' + settings.height + '; '
 
             contexts.push(el.getContext('2d'));
@@ -103,7 +103,7 @@
                 mouseMoveEvent(event, el, el.offsetLeft, el.offsetTop);
             });
 
-            if(settings.setmode) $(el).click(placedot);
+            if(this.settings.setmode) $(el).click(placedot);
         });
 
         return this;
