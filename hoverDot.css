@@ -3,4 +3,5 @@ canvas.hoverDot {
 }
 
 canvas.hoverDotTooltip {
+    position: absolute;
 }
