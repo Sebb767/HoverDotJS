@@ -3,5 +3,9 @@ canvas.hoverDot {
 }
 
 canvas.hoverDotTooltip {
-    position: absolute;
+    background-color:white;
+    border:1px solid blue;
+    position:absolute;
+    left:-200px;
+    top:100px;
 }
