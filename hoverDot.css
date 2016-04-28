@@ -6,6 +6,9 @@ canvas.hoverDotTooltip {
     background-color:white;
     border:1px solid blue;
     position:absolute;
+    width: 240px;
+    height: 30px;
+
     left:-200px;
     top:100px;
 }

@@ -42,6 +42,7 @@
             .addClass('hoverDotTooltip')
             .hide();
         var tooltipctx = tooltip.get(0).getContext('2d');
+        tooltipctx.font = "30px Arial";
 
         var contexts = [];
 
@@ -63,8 +64,7 @@
                     tooltip.get(0).style.left = (dot.x) + "px";
 
                     tooltipctx.clearRect(0, 0, tooltip.width, tooltip.height);
-                    //                  tipCtx.rect(0,0,tipCanvas.width,tipCanvas.height);
-                    tooltipctx.fillText(dot.text, 5, 15);
+                    tooltipctx.fillText(dot.text, 10, 30);
                     hit = true;
                 }
             }
