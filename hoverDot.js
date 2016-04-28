@@ -4,11 +4,15 @@
 
 (function ($) {
 
-    var dot = function (x, y) {
-        this.x = x;
-        this.y = y;
+    var dot = function (_x, _y) {
+        this.x = _x;
+        this.y = _y;
 
-
+        this.render = function (context) {
+            context.beginPath();
+            context.arc(this.x, this.y, 4, 0, Math.PI * 2, true);
+            context.fill();
+        };
     };
 
     // register the plugin
@@ -21,7 +25,7 @@
             dots: [],
             width: "100px",
             height: "100px",
-            setmode: false
+            setmode: true
         }, options );
 
 
@@ -34,14 +38,14 @@
             .addClass('dotHoverTooltip')
             .hide();
 
-
+        var contexts = [];
 
         //
         // handle tooltip positioning on mouse move
         //
-        var mouseMoveEvent = function(event, img) {
-            mouseX = parseInt(e.clientX - offsetX);
-            mouseY = parseInt(e.clientY - offsetY);
+        var mouseMoveEvent = function(event, img, offsetX, offsetY) {
+            mouseX = parseInt(event.clientX - offsetX);
+            mouseY = parseInt(event.clientY - offsetY);
 
             var hit = false;
             for (var i = 0; i < settings.dots.length; i++) {
@@ -60,11 +64,21 @@
             if (!hit) tooltip.hide();
         };
 
+        // re-renders all dots
+        var render = function () {
+            $.each(contexts, function (i, ctx) {
+                $.each(settings.dots, function (j, dot) {
+                    dot.render(ctx);
+                });
+            });
+        };
+
         //
         // places a new dot
         //
         var placedot = function (e) {
-            
+            settings.dots.push(new dot(e.clientX, e.clientY));
+            render();
         };
 
         // init mouse move on each element
@@ -75,9 +89,10 @@
             'width: ' + settings.width + '; ';
             //'height: ' + settings.height + '; '
 
+            contexts.push(el.getContext('2d'));
 
             $(el).mousemove (function (event) {
-                mouseMoveEvent(event, el);
+                mouseMoveEvent(event, el, $(el).offsetLeft, $(el).offsetTop);
             });
 
             if(settings.setmode) $(el).click(placedot);
