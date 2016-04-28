@@ -29,7 +29,8 @@
             dots: [],
             width: "100px",
             height: "100px",
-            setmode: true
+            setmode: true,
+            setcallback: function (x, y) {}
         }, options );
 
 
@@ -87,6 +88,7 @@
         var placedot = function (e) {
             this.settings.dots.push(new dot(e.clientX, e.clientY, "Example Text"));
             render();
+            this.settings.setcallback(e.clientX, e.clientY);
         };
 
         // init mouse move on each element
