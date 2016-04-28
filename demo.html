@@ -9,12 +9,13 @@
 
 </head>
 <body>
-    <canvas id="hoverdemo" width="250" height="500"></canvas>
+    <canvas id="hoverdemo" width="439px" height="595px"></canvas>
     <img id="image" src="karte.png" style="display: none;">
 
     <script>
-        $("#hoverdemo").dotHover({
-            img: $('#image')
+        $("#hoverdemo").dotHover([], {
+            width: '439px',
+            heigth: '595px'
         });
     </script>
 </body>
