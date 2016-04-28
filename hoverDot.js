@@ -59,9 +59,9 @@
                 var dy = mouseY - dot.y;
 
                 if (dx * dx + dy * dy < dot.radius) {
-                    tooltip.show();
-                    console.log("hit");
-                    tooltip.offset({ top: (dot.y - 40) + "px", left: (dot.x) + "px" });
+                    tooltip.get(0).style.top = (dot.y - 40) + "px";
+                    tooltip.get(0).style.left = (dot.x) + "px";
+
                     tooltipctx.clearRect(0, 0, tooltip.width, tooltip.height);
                     //                  tipCtx.rect(0,0,tipCanvas.width,tipCanvas.height);
                     tooltipctx.fillText(dot.text, 5, 15);
@@ -69,7 +69,7 @@
                 }
             }
 
-            if(!hit) tooltip.hide();
+            if(hit) tooltip.show(); else tooltip.hide();
         };
 
         // re-renders all dots
