@@ -23,7 +23,7 @@
     $.fn.dotHover = function (dots, options) {
 
         // settings
-        this.settings = $.extend({
+        var settings = $.extend({
             // defaults
             img: "karte.png", //$('#example.jpg').first(),
             dots: [],
@@ -32,7 +32,6 @@
             setmode: true,
             setcallback: function (x, y) {}
         }, options );
-
 
 
         //
@@ -56,7 +55,7 @@
 
             var hit = false;
             for (var i = 0; i < settings.dots.length; i++) {
-                var dot = this.settings.dots[i];
+                var dot = settings.dots[i];
                 var dx = mouseX - dot.x;
                 var dy = mouseY - dot.y;
 
@@ -76,7 +75,7 @@
         // re-renders all dots
         var render = function () {
             $.each(contexts, function (i, ctx) {
-                $.each(this.settings.dots, function (j, dot) {
+                $.each(settings.dots, function (j, dot) {
                     dot.render(ctx);
                 });
             });
@@ -86,17 +85,17 @@
         // places a new dot
         //
         var placedot = function (e) {
-            this.settings.dots.push(new dot(e.clientX, e.clientY, "Example Text"));
+            settings.dots.push(new dot(e.clientX, e.clientY, "Example Text"));
             render();
-            this.settings.setcallback(e.clientX, e.clientY);
+            settings.setcallback(e.clientX, e.clientY);
         };
 
         // init mouse move on each element
         this.each(function(i, el) {
-            el.style= 'background: url(' + this.settings.img + ');' +
+            el.style= 'background: url(' + settings.img + ');' +
             'background-repeat: no-repeat; ' +
             'background-size: contain;' +
-            'width: ' + this.settings.width + '; ';
+            'width: ' + settings.width + '; ';
             //'height: ' + settings.height + '; '
 
             contexts.push(el.getContext('2d'));
@@ -105,7 +104,7 @@
                 mouseMoveEvent(event, el, el.offsetLeft, el.offsetTop);
             });
 
-            if(this.settings.setmode) $(el).click(placedot);
+            if(settings.setmode) $(el).click(placedot);
         });
 
         return this;
