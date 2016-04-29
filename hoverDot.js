@@ -27,11 +27,16 @@
         // settings
         var settings = $.extend({
             // defaults
-            img: "karte.png", //$('#example.jpg').first(),
-            width: "100px",
-            height: "100px",
+
+            // this should be a valid image url which will be used as background
+            img: "karte.png",
+
+            // whether to allow the user to place dots on click
             setmode: true,
+
+            // a callback for when an event is created
             setcallback: function (dot) {}
+
         }, options );
 
         // initialize dots
