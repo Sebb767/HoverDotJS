@@ -85,22 +85,22 @@
         // places a new dot
         //
         var placedot = function (e) {
-            var dot = new dot(e.clientX, e.clientY, "Example Text");
+            var ndot = new dot(e.clientX  - 7, e.clientY - 7, "Example Text");
 
-            settings.dots.push(dot);
+            settings.dots.push(ndot);
             render();
-            settings.setcallback(dot);
+            settings.setcallback(ndot);
         };
 
         //
         // removes a dot
         //
-        this.removeDot(x, y)
+        this.removeDot = function(x, y)
         {
             settings.dots = settings.dots.filter(function(el, index) {
-                return return dot.x == x && dot.y == y;
+                return dot.x == x && dot.y == y;
             });
-        }
+        };
 
         // init mouse move on each element
         this.each(function(i, el) {
