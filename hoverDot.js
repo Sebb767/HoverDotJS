@@ -1,5 +1,7 @@
 /**
- * Copyright
+ * Created by (c) Sebastian Kaim, 2016
+ *
+ * This file is licensed under the MIT License.
  */
 "use strict";
 
