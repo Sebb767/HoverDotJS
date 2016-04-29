@@ -30,7 +30,7 @@
             width: "100px",
             height: "100px",
             setmode: true,
-            setcallback: function (x, y) {}
+            setcallback: function (dot) {}
         }, options );
 
 
@@ -85,10 +85,22 @@
         // places a new dot
         //
         var placedot = function (e) {
-            settings.dots.push(new dot(e.clientX, e.clientY, "Example Text"));
+            var dot = new dot(e.clientX, e.clientY, "Example Text");
+
+            settings.dots.push(dot);
             render();
-            settings.setcallback(e.clientX, e.clientY);
+            settings.setcallback(dot);
         };
+
+        //
+        // removes a dot
+        //
+        this.removeDot(x, y)
+        {
+            settings.dots = settings.dots.filter(function(el, index) {
+                return return dot.x == x && dot.y == y;
+            });
+        }
 
         // init mouse move on each element
         this.each(function(i, el) {
