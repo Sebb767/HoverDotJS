@@ -40,6 +40,13 @@
         var tooltip = $('<div/>')
             .appendTo('body')
             .addClass('hoverDotTooltip')
+            .css({
+                backgroundColor: 'white',
+                border: '1px solid blue',
+                position: 'absolute',
+                padding: '5px',
+                marginLeft: '-50px'
+            })
             .hide();
 
         var contexts = [];
