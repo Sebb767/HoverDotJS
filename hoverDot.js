@@ -37,12 +37,10 @@
         //
         // create tooltip canvas
         //
-        var tooltip = $('<canvas/>')
+        var tooltip = $('<div/>')
             .appendTo('body')
             .addClass('hoverDotTooltip')
             .hide();
-        var tooltipctx = tooltip.get(0).getContext('2d');
-        tooltipctx.font = "30px Arial";
 
         var contexts = [];
 
@@ -62,9 +60,9 @@
                 if (dx * dx + dy * dy < dot.radius) {
                     tooltip.get(0).style.top = (dot.y - 40) + "px";
                     tooltip.get(0).style.left = (dot.x) + "px";
+                    tooltip.get(0).style.marginLeft = ((-tooltip.width() / 2) + 3) + "px";
 
-                    tooltipctx.clearRect(0, 0, tooltip.width, tooltip.height);
-                    tooltipctx.fillText(dot.text, 10, 30);
+                    tooltip.html(dot.text);
                     hit = true;
                 }
             }
@@ -85,7 +83,7 @@
         // places a new dot
         //
         var placedot = function (e) {
-            var ndot = new dot(e.clientX  - 7, e.clientY - 7, "Example Text");
+            var ndot = new dot(e.clientX  - 7, e.clientY - 7, "Example Text"); // -7,-7 for cursor offset
 
             settings.dots.push(ndot);
             render();

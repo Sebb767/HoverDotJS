@@ -2,10 +2,10 @@ canvas.hoverDot {
 
 }
 
-canvas.hoverDotTooltip {
+div.hoverDotTooltip {
     background-color:white;
     border:1px solid blue;
     position:absolute;
-    width: 240px;
-    height: 30px;
+    padding: 5px;
+    margin-left: -50px;
 }
