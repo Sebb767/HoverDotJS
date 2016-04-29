@@ -1,5 +1,5 @@
 /**
- * Created by sebastian.kaim on 26.04.2016.
+ * Copyright
  */
 "use strict";
 
@@ -26,13 +26,17 @@
         var settings = $.extend({
             // defaults
             img: "karte.png", //$('#example.jpg').first(),
-            dots: [],
             width: "100px",
             height: "100px",
             setmode: true,
             setcallback: function (dot) {}
         }, options );
 
+        // initialize dots
+        settings.dots = [];
+        $.each(dots, function (i, el) {
+            settings.dots.push(new dot(el.x, el.y, el.text));
+        });
 
         //
         // create tooltip canvas
