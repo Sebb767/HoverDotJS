@@ -51,6 +51,18 @@
 
         var contexts = [];
 
+        var showHideTooltip = function (show) {
+            if(show)
+            {
+                tooltip.show();
+                tooltip.get(0).style.marginLeft = ((-tooltip.width() / 2) + 3) + "px";
+            }
+            else
+            {
+                tooltip.hide();
+            }
+        };
+
         //
         // handle tooltip positioning on mouse move
         //
@@ -67,14 +79,13 @@
                 if (dx * dx + dy * dy < dot.radius) {
                     tooltip.get(0).style.top = (dot.y - 40) + "px";
                     tooltip.get(0).style.left = (dot.x) + "px";
-                    tooltip.get(0).style.marginLeft = ((-tooltip.width() / 2) + 3) + "px";
 
                     tooltip.html(dot.text);
                     hit = true;
                 }
             }
 
-            if(hit) tooltip.show(); else tooltip.hide();
+            showHideTooltip(hit);
         };
 
         // re-renders all dots
