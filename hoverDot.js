@@ -32,7 +32,7 @@
             img: "karte.png",
 
             // whether to allow the user to place dots on click
-            setmode: true,
+            setmode: false,
 
             // a callback for when an event is created
             setcallback: function (dot) {}
