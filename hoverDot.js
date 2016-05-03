@@ -35,7 +35,10 @@
             setmode: false,
 
             // a callback for when an event is created
-            setcallback: function (dot) {}
+            setcallback: function (dot) {},
+
+            // default text for an unitialized dot
+            defaulttext: "Example Text"
 
         }, options );
 
@@ -112,7 +115,7 @@
         // places a new dot
         //
         var placedot = function (event, element) {
-            var ndot = new dot(event.clientX - element.offsetLeft, event.clientY - element.offsetTop + $(window).scrollTop(), "Example Text"); // -7,-7 for cursor offset
+            var ndot = new dot(event.clientX - element.offsetLeft, event.clientY - element.offsetTop + $(window).scrollTop(), settings.defaulttext); // -7,-7 for cursor offset
 
             settings.dots.push(ndot);
             render();
