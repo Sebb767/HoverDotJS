@@ -88,8 +88,8 @@
                 var dy = mouseY - dot.y;
 
                 if (dx * dx + dy * dy < dot.radius) {
-                    tooltip.get(0).style.top = ((dot.y - 40) - offsetY) + "px";
-                    tooltip.get(0).style.left = (dot.x - offsetX) + "px";
+                    tooltip.get(0).style.top = ((dot.y - 40) + offsetY) + "px";
+                    tooltip.get(0).style.left = (dot.x + offsetX) + "px";
 
                     tooltip.html(dot.text);
                     hit = true;
