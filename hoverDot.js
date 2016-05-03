@@ -88,8 +88,8 @@
                 var dy = mouseY - dot.y;
 
                 if (dx * dx + dy * dy < dot.radius) {
-                    tooltip.get(0).style.top = (dot.y - 40) + "px";
-                    tooltip.get(0).style.left = (dot.x) + "px";
+                    tooltip.get(0).style.top = ((dot.y - 40) - offsetY) + "px";
+                    tooltip.get(0).style.left = (dot.x - offsetX) + "px";
 
                     tooltip.html(dot.text);
                     hit = true;
@@ -111,8 +111,8 @@
         //
         // places a new dot
         //
-        var placedot = function (e) {
-            var ndot = new dot(e.clientX  - 7, e.clientY - 7, "Example Text"); // -7,-7 for cursor offset
+        var placedot = function (event, element) {
+            var ndot = new dot(event.clientX - element.offsetLeft, event.clientY - element.offsetTop + $(window).scrollTop(), "Example Text"); // -7,-7 for cursor offset
 
             settings.dots.push(ndot);
             render();
@@ -143,7 +143,9 @@
                 mouseMoveEvent(event, el, el.offsetLeft, el.offsetTop);
             });
 
-            if(settings.setmode) $(el).click(placedot);
+            if(settings.setmode) $(el).click(function (e) {
+                placedot(e, el);
+            });
         });
 
         // render initial dots
