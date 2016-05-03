@@ -12,7 +12,7 @@
         this.x = _x;
         this.y = _y;
         this.text = _text;
-        this.radius = 16; // hover event radius
+        this.radius = 24; // hover event radius
 
         this.render = function (context) {
             context.beginPath();
@@ -79,7 +79,7 @@
         //
         var mouseMoveEvent = function(event, img, offsetX, offsetY) {
             var mouseX = parseInt(event.clientX - offsetX);
-            var mouseY = parseInt(event.clientY - offsetY);
+            var mouseY = parseInt(event.clientY - offsetY + $(window).scrollTop());
 
             var hit = false;
             for (var i = 0; i < settings.dots.length; i++) {
