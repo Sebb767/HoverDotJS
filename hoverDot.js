@@ -101,9 +101,9 @@
 
         // re-renders all dots
         var render = function () {
-            $.each(contexts, function (i, ctx) {
+            $.each(contexts, function (i, data) {
                 $.each(settings.dots, function (j, dot) {
-                    dot.render(ctx);
+                    dot.render(data.ctx);
                 });
             });
         };
@@ -125,7 +125,7 @@
         this.removeDot = function(x, y)
         {
             settings.dots = settings.dots.filter(function(el, index) {
-                return dot.x == x && dot.y == y;
+                return dot.x != x && dot.y != y;
             });
         };
 
@@ -137,7 +137,7 @@
             'width: ' + settings.width + '; ';
             //'height: ' + settings.height + '; '
 
-            contexts.push(el.getContext('2d'));
+            contexts.push( { el: el, ctx: el.getContext('2d') });
 
             $(el).mousemove (function (event) {
                 mouseMoveEvent(event, el, el.offsetLeft, el.offsetTop);
