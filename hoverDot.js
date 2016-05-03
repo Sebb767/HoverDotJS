@@ -146,6 +146,9 @@
             if(settings.setmode) $(el).click(placedot);
         });
 
+        // render initial dots
+        render();
+
         return this;
     };
 
