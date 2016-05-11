@@ -154,7 +154,8 @@
             var ndot = new dot(event.clientX - element.offsetLeft,
                 event.clientY - element.offsetTop + $(window).scrollTop(),
                 settings.defaulttext,
-                settings.align);
+                settings.align,
+                element);
 
             settings.dots.push(ndot);
             render();
