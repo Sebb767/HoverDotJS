@@ -7,17 +7,43 @@
 
 (function ($) {
 
+    // returns whether values are less than (maxDev * 100)% away
+    var isNearby = function (one, two, maxDev) {
+        return Math.abs(1 - Math.abs(one / two)) < maxDev;
+    };
+
     // dot helper class
-    var dot = function (_x, _y, _text) {
+    // x,y are assumend to already be relative to align unless el is not undefined
+    var dot = function (_x, _y, _text, _align, el) {
         this.x = _x;
         this.y = _y;
-        this.text = _text;
+        this.text = _text; // dot text
+        this.align = _align; // {x, y} to which these coords are relative to
         this.radius = 24; // hover event radius
+
+        if(el != undefined)
+        {
+            this.x = (this.x * this.align.x) / el.width;
+            this.y = (this.y * this.align.y) / el.height;
+        }
 
         this.render = function (context) {
             context.beginPath();
-            context.arc(this.x, this.y, 4, 0, Math.PI * 2, true);
+            var rx = (this.x * el.width) / this.align.x;
+            var ry = (this.y * el.height) / this.align.y;
+            context.arc(rx, ry, 4, 0, Math.PI * 2, true);
             context.fill();
+        };
+
+        // returns whether (x,y) match this point when relative to el or, if
+        // el == undefined, they're matching
+        this.isMe = function (x, y, el) {
+            if(el != undefined)
+            {
+                x = (x * this.align.x) / el.width;
+                y = (y * this.align.y) / el.height;
+            }
+            return isNearby(x, this.x, 0.01) && isNearby(y, this.y, 0.01);
         };
     };
 
@@ -38,7 +64,17 @@
             setcallback: function (dot) {},
 
             // default text for an unitialized dot
-            defaulttext: "Example Text"
+            defaulttext: "Example Text",
+
+            // Reference width/height to which all coords are relative to.
+            // Usually, there's no reason to change this, but if you have
+            // old coords which are aligned differently you may want to
+            // override this. The default values are pretty high for better
+            // precision.
+            align: {
+                x: 100000, // width
+                y: 100000 // height
+            }
 
         }, options );
 
@@ -91,7 +127,7 @@
                 var dy = mouseY - dot.y;
 
                 if (dx * dx + dy * dy < dot.radius) {
-                    tooltip.get(0).style.top = ((dot.y - 40) + offsetY) + "px";
+                    tooltip.get(0).style.top = ((dot.y - 40) + offsetY) + "px"; // -40 to "center" the canvas
                     tooltip.get(0).style.left = (dot.x + offsetX) + "px";
 
                     tooltip.html(dot.text);
@@ -115,7 +151,10 @@
         // places a new dot
         //
         var placedot = function (event, element) {
-            var ndot = new dot(event.clientX - element.offsetLeft, event.clientY - element.offsetTop + $(window).scrollTop(), settings.defaulttext); // -7,-7 for cursor offset
+            var ndot = new dot(event.clientX - element.offsetLeft,
+                event.clientY - element.offsetTop + $(window).scrollTop(),
+                settings.defaulttext,
+                settings.align);
 
             settings.dots.push(ndot);
             render();
