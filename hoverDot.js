@@ -23,27 +23,34 @@
 
         if(el != undefined)
         {
-            this.x = (this.x * this.align.x) / el.width;
-            this.y = (this.y * this.align.y) / el.height;
+            this.x = (this.x * this.align.x) / $(el).width();
+            this.y = (this.y * this.align.y) / $(el).height();
         }
 
-        this.render = function (context) {
+        this.relativeX = function (el) {
+            return (this.x * $(el).width()) / this.align.x;
+        };
+
+        this.relativeY = function (el) {
+            return (this.y * $(el).height()) / this.align.y;
+        };
+
+        this.render = function (context, el) {
             context.beginPath();
-            var rx = (this.x * el.width) / this.align.x;
-            var ry = (this.y * el.height) / this.align.y;
-            context.arc(rx, ry, 4, 0, Math.PI * 2, true);
+            context.arc(this.relativeX(el), this.relativeY(el), 4, 0, Math.PI * 2, true);
             context.fill();
         };
 
         // returns whether (x,y) match this point when relative to el or, if
-        // el == undefined, they're matching
-        this.isMe = function (x, y, el) {
+        // el == undefined, they're matching (== diffrence less than maxDeviration)
+        this.isMe = function (x, y, el, maxDeviration) {
+            maxDeviration = maxDeviration || 0.01;
             if(el != undefined)
             {
-                x = (x * this.align.x) / el.width;
-                y = (y * this.align.y) / el.height;
+                x = (x * this.align.x) / $(el).width();
+                y = (y * this.align.y) / $(el).height();
             }
-            return isNearby(x, this.x, 0.01) && isNearby(y, this.y, 0.01);
+            return isNearby(x, this.x, maxDeviration) && isNearby(y, this.y, maxDeviration);
         };
     };
 
@@ -81,7 +88,7 @@
         // initialize dots
         settings.dots = [];
         $.each(dots, function (i, el) {
-            settings.dots.push(new dot(el.x, el.y, el.text));
+            settings.dots.push(new dot(el.x, el.y, el.text, settings.align));
         });
 
         //
@@ -123,12 +130,12 @@
             var hit = false;
             for (var i = 0; i < settings.dots.length; i++) {
                 var dot = settings.dots[i];
-                var dx = mouseX - dot.x;
-                var dy = mouseY - dot.y;
+                var dx = mouseX - dot.relativeX(img);
+                var dy = mouseY - dot.relativeY(img);
 
                 if (dx * dx + dy * dy < dot.radius) {
-                    tooltip.get(0).style.top = ((dot.y - 40) + offsetY) + "px"; // -40 to "center" the canvas
-                    tooltip.get(0).style.left = (dot.x + offsetX) + "px";
+                    tooltip.get(0).style.top = ((dot.relativeY(img) - 40) + offsetY) + "px"; // -40 to "center" the canvas
+                    tooltip.get(0).style.left = (dot.relativeX(img) + offsetX) + "px";
 
                     tooltip.html(dot.text);
                     hit = true;
@@ -142,7 +149,7 @@
         var render = function () {
             $.each(contexts, function (i, data) {
                 $.each(settings.dots, function (j, dot) {
-                    dot.render(data.ctx);
+                    dot.render(data.ctx, data.el);
                 });
             });
         };
@@ -189,6 +196,8 @@
             if(settings.setmode) $(el).click(function (e) {
                 placedot(e, el);
             });
+
+            $(el).resize(render);
         });
 
         // render initial dots
