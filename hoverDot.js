@@ -117,7 +117,7 @@
         // handle tooltip positioning on mouse move
         //
         var mouseMoveEvent = function(event, img, offsetX, offsetY) {
-            var mouseX = parseInt(event.clientX - offsetX);
+            var mouseX = parseInt(event.clientX - offsetX + $(window).scrollLeft());
             var mouseY = parseInt(event.clientY - offsetY + $(window).scrollTop());
 
             var hit = false;
