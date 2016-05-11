@@ -183,7 +183,7 @@
         this.each(function(i, el) {
             el.style= 'background: url(' + settings.img + ');' +
             'background-repeat: no-repeat; ' +
-            'background-size: contain;' +
+            'background-size: 100% 100%;' +
             'width: ' + settings.width + '; ';
             //'height: ' + settings.height + '; '
 
