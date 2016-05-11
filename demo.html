@@ -7,10 +7,23 @@
     <script src="jquery.js"></script>
     <script src="hoverDot.js"></script>
 
+    <!-- jQuery UI is only for the resizeable demo and usually not required -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <style>
+        body {
+            padding-bottom: 50px;
+        }
+
         .container {
             width: 100%;
             text-align: center;
+        }
+
+        #resize-container {
+            min-height: 1000px;
+            margin: 40px;
         }
     </style>
 
@@ -26,6 +39,13 @@
         <p>This is a demo where you can place dots. Just click anywhere.</p>
 
         <canvas id="hoverdemo-place" width="439px" height="595px"></canvas>
+
+        <p>This is a resizeable demo. Just resize the div!</p>
+
+        <div id="resize-container">
+            <canvas id="hoverdemo-resize" width="439px" height="595px" class="ui-widget-content"></canvas>
+        </div>
+
     </div>
 
     <script>
@@ -33,9 +53,9 @@
 
         // this is just showing some dots
         $("#hoverdemo").dotHover([
-            { x: 281, y: 485, text: 'Example dot' },
-            { x: 250, y: 67, text: 'I\'m a dot!' },
-            { x: 120, y: 180, text: 'Hey there :)' }
+            { x: 28100, y: 48500, text: 'Example dot' },
+            { x: 75000, y: 6700, text: 'I\'m a dot!' },
+            { x: 12000, y: 18000, text: 'Hey there :)' }
         ], {
             img: 'karte.png'
         });
@@ -44,6 +64,19 @@
             img: 'karte.png',
             setmode: true
         });
+
+        // same as below, but resizeable
+        var rz = $("#hoverdemo-resize");
+        rz.resizable();
+        rz.dotHover([
+            { x: 28100, y: 48500, text: 'Example dot' },
+            { x: 75000, y: 6700, text: 'I\'m a dot!' },
+            { x: 12000, y: 18000, text: 'Hey there :)' }
+        ], {
+            img: 'karte.png'
+        });
+
+
     </script>
 </body>
 </html>
