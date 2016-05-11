@@ -73,6 +73,11 @@
             // default text for an unitialized dot
             defaulttext: "Example Text",
 
+            // Whether to force a specific width to height ratio
+            // for example, for 16:9 use
+            // forceRatio: 1.77777777777778,
+            forceRatio: false,
+
             // Reference width/height to which all coords are relative to.
             // Usually, there's no reason to change this, but if you have
             // old coords which are aligned differently you may want to
@@ -187,17 +192,23 @@
             'width: ' + settings.width + '; ';
             //'height: ' + settings.height + '; '
 
+            var jqel = $(el);
+
             contexts.push( { el: el, ctx: el.getContext('2d') });
 
-            $(el).mousemove (function (event) {
+            jqel.mousemove (function (event) {
                 mouseMoveEvent(event, el, el.offsetLeft, el.offsetTop);
             });
 
-            if(settings.setmode) $(el).click(function (e) {
+            if(settings.setmode) jqel.click(function (e) {
                 placedot(e, el);
             });
 
-            $(el).resize(render);
+            jqel.resize(function (e) {
+                if(isNumeric(settings.forceRatio))
+                    jqel.height(jqel.width() * settings.forceRatio);
+                render();
+            });
         });
 
         // render initial dots

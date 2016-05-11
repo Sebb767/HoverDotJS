@@ -21,9 +21,13 @@
             text-align: center;
         }
 
-        #resize-container {
+        .resize-container {
             min-height: 1000px;
             margin: 40px;
+        }
+
+        p {
+            font-size: 1.2em;
         }
     </style>
 
@@ -42,10 +46,17 @@
 
         <p>This is a resizeable demo. Just resize the div!</p>
 
-        <div id="resize-container">
+        <div class="resize-container">
             <canvas id="hoverdemo-resize" width="439px" height="595px" class="ui-widget-content"></canvas>
         </div>
 
+        <p>This is resizeable, too, but it will keep a 0.73781512605042 ratio and allows dot placement.</p>
+
+        <div class="resize-container">
+            <canvas id="hoverdemo-resize-fw" width="439px" height="595px" class="ui-widget-content"></canvas>
+        </div>
+
+        <p>Thats all there is! Have a look at the page source or grab the code over at <a href="https://github.com/Sebb767/HoverDotJS">GitHub</a>!</p>
     </div>
 
     <script>
@@ -76,7 +87,17 @@
             img: 'karte.png'
         });
 
-
+        var rzf = $("#hoverdemo-resize-fw");
+        rzf.resizable();
+        rzf.dotHover([
+            { x: 28100, y: 48500, text: 'Example dot' },
+            { x: 75000, y: 6700, text: 'I\'m a dot!' },
+            { x: 12000, y: 18000, text: 'Hey there :)' }
+        ], {
+            img: 'karte.png',
+            setmode: true,
+            forceRatio: 0.73781512605042
+        });
     </script>
 </body>
 </html>
