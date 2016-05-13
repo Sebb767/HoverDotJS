@@ -84,43 +84,45 @@
 
     <script>
         // its as simple as calling this function on a canvas!
+        $(window).load(function () {
+            // this is just showing some dots
+            $("#hoverdemo").dotHover([
+                { x: 120 , y: 80, text: 'Example dot' },
+                { x: 75000, y: 6700, text: 'I\'m a dot!' },
+                { x: 12000, y: 18000, text: 'Hey there :)' }
+            ], {
+                img: 'karte.png'
+            });
 
-        // this is just showing some dots
-        $("#hoverdemo").dotHover([
-            { x: 120 , y: 80, text: 'Example dot' },
-            { x: 75000, y: 6700, text: 'I\'m a dot!' },
-            { x: 12000, y: 18000, text: 'Hey there :)' }
-        ], {
-            img: 'karte.png'
+            $("#hoverdemo-place").dotHover([], {
+                img: 'karte.png',
+                setmode: true
+            });
+
+            // same as below, but resizeable
+            var rz = $("#hoverdemo-resize");
+            rz.resizable();
+            rz.dotHover([
+                { x: 28100, y: 48500, text: 'Example dot' },
+                { x: 75000, y: 6700, text: 'I\'m a dot!' },
+                { x: 12000, y: 18000, text: 'Hey there :)' }
+            ], {
+                img: 'karte.png'
+            });
+
+            var rzf = $("#hoverdemo-resize-fw");
+            rzf.resizable();
+            rzf.dotHover([
+                { x: 28100, y: 48500, text: 'Example dot' },
+                { x: 75000, y: 6700, text: 'I\'m a dot!' },
+                { x: 12000, y: 18000, text: 'Hey there :)' }
+            ], {
+                img: 'karte.png',
+                setmode: true,
+                forceRatio: 0.73781512605042
+            });
         });
 
-        $("#hoverdemo-place").dotHover([], {
-            img: 'karte.png',
-            setmode: true
-        });
-
-        // same as below, but resizeable
-        var rz = $("#hoverdemo-resize");
-        rz.resizable();
-        rz.dotHover([
-            { x: 28100, y: 48500, text: 'Example dot' },
-            { x: 75000, y: 6700, text: 'I\'m a dot!' },
-            { x: 12000, y: 18000, text: 'Hey there :)' }
-        ], {
-            img: 'karte.png'
-        });
-
-        var rzf = $("#hoverdemo-resize-fw");
-        rzf.resizable();
-        rzf.dotHover([
-            { x: 28100, y: 48500, text: 'Example dot' },
-            { x: 75000, y: 6700, text: 'I\'m a dot!' },
-            { x: 12000, y: 18000, text: 'Hey there :)' }
-        ], {
-            img: 'karte.png',
-            setmode: true,
-            forceRatio: 0.73781512605042
-        });
     </script>
 </body>
 </html>

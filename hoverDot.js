@@ -136,15 +136,21 @@
             var mouseX = parseInt(event.clientX - offsetX + $(window).scrollLeft());
             var mouseY = parseInt(event.clientY - offsetY + $(window).scrollTop());
 
+            //*************************************************//
+            // ACHTUNG!!! BLÖDE, DUMME FREITAGSLÖSUNG!!!!!!!!! //
+            //*************************************************//
+
             var hit = false;
             for (var i = 0; i < settings.dots.length; i++) {
                 var dot = settings.dots[i];
-                var dx = mouseX - dot.relativeX(img);
-                var dy = mouseY - dot.relativeY(img);
+                var dx = mouseX - dot.intialRelativeX * ($(img).width() / 300); //relativeX(img);
+                var dy = mouseY - dot.intialRelativeY * ($(img).height() / 150); //relativeY(img);
+                console.log("dx: " + dx + ", dy: "+dy + ', width: ' + $(img).width() + ', height: ' + $(img).height());
 
                 if (dx * dx + dy * dy < dot.radius) {
-                    tooltip.get(0).style.top = ((dot.relativeY(img) - 40) + offsetY) + "px"; // -40 to "center" the canvas
-                    tooltip.get(0).style.left = (dot.relativeX(img) + offsetX) + "px";
+                    // SCHEIS LÖSUNG! NICHT LESEN!
+                    tooltip.get(0).style.top = (dot.intialRelativeX * ($(img).width() / 300) + offsetY -40 - 150) + "px"; // -40 to "center" the canvas
+                    tooltip.get(0).style.left = (dot.intialRelativeY * ($(img).height() / 150) + offsetX + 170) + "px";
 
                     tooltip.html(dot.text);
                     hit = true;
@@ -208,7 +214,8 @@
             contexts.push( { el: el, ctx: el.getContext('2d') });
 
             jqel.mousemove (function (event) {
-                mouseMoveEvent(event, el, el.offsetLeft, el.offsetTop);
+                var offset = jqel.offset();
+                mouseMoveEvent(event, el, offset.left, offset.top);
             });
 
             if(settings.setmode) jqel.click(function (e) {
