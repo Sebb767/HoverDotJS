@@ -14,6 +14,8 @@
     <style>
         body {
             padding-bottom: 50px;
+            padding-left: 25%;
+            padding-right: 25%;
         }
 
         .container {
@@ -24,6 +26,18 @@
         .resize-container {
             min-height: 1000px;
             margin: 40px;
+        }
+
+        .map-container {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .map-container canvas {
+            width: 100%;
+            height: auto;
+            padding-bottom: 135.535307517084%;
         }
 
         p {
@@ -38,22 +52,31 @@
 
         <p>This simple demo just has some dots on it. Feel free to hover them ;)</p>
 
-        <canvas id="hoverdemo" width="439px" height="595px"></canvas>
+        <div class="map-container">
+            <canvas id="hoverdemo"></canvas>
+        </div>
+
 
         <p>This is a demo where you can place dots. Just click anywhere.</p>
 
-        <canvas id="hoverdemo-place" width="439px" height="595px"></canvas>
+        <div class="map-container">
+            <canvas id="hoverdemo-place" width="439px" height="595px"></canvas>
+        </div>
 
         <p>This is a resizeable demo. Just resize the div!</p>
 
         <div class="resize-container">
-            <canvas id="hoverdemo-resize" width="439px" height="595px" class="ui-widget-content"></canvas>
+            <div class="map-container">
+                <canvas id="hoverdemo-resize" width="439px" height="595px" class="ui-widget-content"></canvas>
+            </div>
         </div>
 
         <p>This is resizeable, too, but it will keep a 0.73781512605042 ratio and allows dot placement.</p>
 
         <div class="resize-container">
-            <canvas id="hoverdemo-resize-fw" width="439px" height="595px" class="ui-widget-content"></canvas>
+            <div class="map-container">
+                <canvas id="hoverdemo-resize-fw" width="439px" height="595px" class="ui-widget-content"></canvas>
+            </div>
         </div>
 
         <p>Thats all there is! Have a look at the page source or grab the code over at <a href="https://github.com/Sebb767/HoverDotJS">GitHub</a>!</p>
@@ -64,7 +87,7 @@
 
         // this is just showing some dots
         $("#hoverdemo").dotHover([
-            { x: 28100, y: 48500, text: 'Example dot' },
+            { x: 120 , y: 80, text: 'Example dot' },
             { x: 75000, y: 6700, text: 'I\'m a dot!' },
             { x: 12000, y: 18000, text: 'Hey there :)' }
         ], {

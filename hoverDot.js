@@ -35,10 +35,14 @@
             return (this.y * $(el).height()) / this.align.y;
         };
 
+        this.intialRelativeX = _x;
+        this.intialRelativeY = _y;
+
         this.render = function (context, el) {
             context.beginPath();
-            context.arc(this.relativeX(el), this.relativeY(el), 4, 0, Math.PI * 2, true);
+            context.arc(this.intialRelativeX, this.intialRelativeY, 4, 0, Math.PI * 2, true);
             context.fill();
+            context.closePath();
         };
 
         // returns whether (x,y) match this point when relative to el or, if
@@ -152,10 +156,17 @@
 
         // re-renders all dots
         var render = function () {
+            console.log("Rerendering");
             $.each(contexts, function (i, data) {
+                data.ctx.setTransform(1, 0, 0, 1, 0, 0);
+                data.ctx.clearRect(0, 0, data.el.width, data.el.height);
+
+
                 $.each(settings.dots, function (j, dot) {
                     dot.render(data.ctx, data.el);
                 });
+
+                data.ctx.stroke();
             });
         };
 
@@ -205,11 +216,11 @@
             });
 
             jqel.resize(function (e) {
-                if(isNumeric(settings.forceRatio))
-                    jqel.height(jqel.width() * settings.forceRatio);
                 render();
             });
         });
+
+        $(window).resize(render);
 
         // render initial dots
         render();
